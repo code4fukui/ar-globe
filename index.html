@@ -25,7 +25,7 @@ import { OrbitControls } from 'https://code4fukui.github.io/three.js_examples/js
 import { CSV } from "https://js.sabae.cc/CSV.js";
 import { deg2rad } from "./deg2rad.js";
 import { createCoastLines } from "./createCoastLines.js";
-import { createCountriesDetail } from "./createCountriesDetail.js";
+import { createGlobe } from "./createGlobe.js";
 
 const r = 0.7;
 
@@ -38,7 +38,7 @@ camera.position.y = 0; // 1.5;
 const o = new THREE.Group();
 
 const detailcountries = ["Japan", "Taiwan"];
-o.add(await createCountriesDetail(detailcountries));
+o.add(await createGlobe(detailcountries));
 //o.add(await createCoastLines());
 
 o.rotation.x = deg2rad(90);
