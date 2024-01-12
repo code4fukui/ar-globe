@@ -9,7 +9,7 @@ const detail2 = 10;
 //const spherecolor = 0xccddff; // blue
 const spherecolor = 0xffffff; // white
 
-export const createCountriesDetail = async (deteailcountries) => {
+export const createCountriesDetail = async (deteailcountries = ["Japan"]) => {
   const o = new THREE.Group();
   o.add(await createSphere(0.997, 6, spherecolor));
   o.add(await createCountries(detail, 0x222222, f => deteailcountries.indexOf(f.properties.NAME) == -1));
