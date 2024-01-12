@@ -2,8 +2,8 @@ import { THREE } from "https://code4fukui.github.io/egxr.js/egxr.js";
 import { lla2xyz } from "./lla2xyz.js";
 import { baseurl } from "./baseurl.js";
 
-export const createCoastLines = async (detail = 110, color = "green") => { // 110, 50, 10
-  const url = `${baseurl}${detail}m/physical/ne_${detail}m_coastline.json`;
+export const createCountries = async (detail = 110, color = "green", filter = null) => { // 110, 50, 10
+  const url = `${baseurl}${detail}m/cultural/ne_${detail}m_admin_0_countries.json`;
   const geojson = await (await fetch(url)).json();
   const grp = new THREE.Group();
   const makeLine = (coordinates) => {
@@ -16,11 +16,19 @@ export const createCoastLines = async (detail = 110, color = "green") => { // 11
   };
   const makeFeature = (f) => {
     for (const f of geojson.features) {
-      if (f.geometry.type == "LineString") {
+      const t = f.geometry.type;
+      if (filter && !filter(f)) continue;
+      if (t == "LineString") {
         makeLine(f.geometry.coordinates);
-      } else if (f.geometry.type == "MultiLineString") {
+      } else if (t == "MultiLineString" || t == "Polygon") {
         for (const c of f.geometry.coordinates) {
           makeLine(c);
+        }
+      } else if (t == "MultiPolygon") {
+        for (const c of f.geometry.coordinates) {
+          for (const c2 of c) {
+            makeLine(c2);
+          }
         }
       } else {
         console.log("can't parse", f);
