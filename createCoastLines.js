@@ -1,9 +1,10 @@
 import { THREE } from "https://code4fukui.github.io/egxr.js/egxr.js";
 import { lla2xyz } from "./lla2xyz.js";
+import { baseurl } from "./baseurl.js";
 
 export const createCoastLines = async (r = 1.0, detail = 110, color = "green") => { // 110, 50, 10
-  const path = `ne_${detail}m_coastline.json`;
-  const geojson = await (await fetch(path)).json();
+  const url = `${baseurl}${detail}m/physical/ne_${detail}m_coastline.json`;
+  const geojson = await (await fetch(url)).json();
   const grp = new THREE.Group();
   const makeLine = (coordinates) => {
     const points = coordinates.map(i => {
