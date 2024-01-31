@@ -8,7 +8,7 @@ export const createCountries = async (detail = 110, color = "green", filter = nu
   const grp = new THREE.Group();
   const makeLine = (coordinates) => {
     const points = coordinates.map(i => {
-      const p = lla2xyz(Math.PI - i[0], i[1], 0);
+      const p = lla2xyz(i[1], i[0], 0);
       return new THREE.Vector3(p.x, p.y, p.z);
     });
     const geo = new THREE.BufferGeometry().setFromPoints(points);
