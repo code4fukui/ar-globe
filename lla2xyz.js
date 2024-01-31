@@ -2,7 +2,7 @@ import { deg2rad } from "./deg2rad.js";
 
 export const earthr = 12742 * 1000 / 2;
 
-export const lla2xyz = (lat, lng, alt, r = 1.0) => {
+export const lla2xyz = (lat, lng, alt = 0, r = 1.0) => {
   const d = r + alt / earthr;
   const th = Math.PI / 2 + deg2rad(lng);
   const phi = deg2rad(lat);
