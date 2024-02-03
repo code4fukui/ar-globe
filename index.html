@@ -26,7 +26,9 @@ import { CSV } from "https://js.sabae.cc/CSV.js";
 import { deg2rad } from "./deg2rad.js";
 import { createCoastLines } from "./createCoastLines.js";
 import { createGlobe } from "./createGlobe.js";
+import { createSphere } from "./createSphere.js";
 import { lla2xyz } from "./lla2xyz.js";
+import { RotateUI } from "./RotateUI.js";
 
 const r = 0.7;
 
@@ -140,12 +142,44 @@ document.body.onkeydown = (e) => {
   }
 };
 
+// control by hands
+/*
+const ctrls = [];
+for (let i = 0; i < 2; i++) {
+  const ctrl = renderer.xr.getController(i);
+  scene.add(ctrl);
+  const sphere = createSphere(0.05, 5, "blue");
+  ctrl.add(sphere);
+  ctrls.push(ctrl);
+}
+*/
+
+// for debug
+/*
+renderer.xr.addEventListener("sessionstart", (event) => {
+  const session = renderer.xr.getSession();
+  session.addEventListener("inputsourceschange", (event) => {
+    for (let i = 0; i < 2; i++) {
+      const ctrl = renderer.xr.getController(i);
+      if (!ctrl) continue;
+      const sphere = createSphere(0.05, 5, "blue");
+      ctrl.add(sphere);
+      scene.add(ctrl);
+      //ctrls.push(ctrl);
+    }
+  });
+});
+*/
+
+const rotateui = new RotateUI(o, r);
+
 const clock = new THREE.Clock();
 renderer.setAnimationLoop(() => {
   controls.update();
-  o.rotation.z -= .0005;
+  rotateui.update(renderer);
   renderer.render(scene, camera);
 });
+
 
 </script>
 </body>
