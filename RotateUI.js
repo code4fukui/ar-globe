@@ -6,7 +6,7 @@ class UI {
 
 export class RotateUI {
   uis = [];
-  autoth = 0.0005;
+  autoth = -0.0005;
   constructor(target, r) {
     this.target = target;
     this.r = r;
